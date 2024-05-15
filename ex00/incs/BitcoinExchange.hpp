@@ -21,6 +21,8 @@
 #include <fstream>
 #include <exception>
 #include "define.h"
+#include <cstdlib>
+#include <iterator>
 
 class BitcoinExchange
 {
@@ -32,13 +34,13 @@ class BitcoinExchange
         BitcoinExchange & operator=(const BitcoinExchange &rhs);
         ~BitcoinExchange();
 
+        void ParseCsvFile(std::ifstream & dataFile); // c'est necessaire ? 
         void ParseInputFile(std::ifstream & inputFile);
-        void ParseCsvFile(); // c'est necessaire ? 
-        void getExchange(); //cela va donner le resultat demande 
+        void getExchange(std::string key, std::string value); //cela va donner le resultat demande 
 
-        void checkLine(std::string line); //ligne par ligne 
-        void checkKey(); //date
-        void checkValue(); //valeur
+        void checkLineCsv(std::string line); //ligne par ligne 
+        void checkLineInput(std::string line); //ligne par ligne 
+        void checkDate(const std::string &date); //date
 };
 
 #endif

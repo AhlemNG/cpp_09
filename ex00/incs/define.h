@@ -14,5 +14,8 @@
 #define DEFINE_H
 
 #define BAD_INPUT "Error: bad input."
-
+#define EMPTY_FILE "Error: empty file."
+#define NO_DATA "Error: No data in file."
+#define NOT_VALID "Error: Not a valid number."
+#define BAD_FORMAT "Error: Not a valid format."
 #endif
