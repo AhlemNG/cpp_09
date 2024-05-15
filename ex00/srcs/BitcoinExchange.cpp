@@ -6,7 +6,7 @@
 /*   By: anouri <anouri@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/11 13:42:36 by anouri            #+#    #+#             */
-/*   Updated: 2024/05/11 16:33:17 by anouri           ###   ########.fr       */
+/*   Updated: 2024/05/15 18:06:08 by anouri           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,7 +34,6 @@ void BitcoinExchange::ParseCsvFile(std::ifstream & dataFile)
 
     if (!getline(dataFile, firstLine))
         throw(std:: runtime_error(EMPTY_FILE)); // date,exchange_rate
-    //parse  first line here
     if (!getline(dataFile, line))
         throw(std:: runtime_error(NO_DATA)); //2009-01-02,0
     else 
@@ -43,11 +42,11 @@ void BitcoinExchange::ParseCsvFile(std::ifstream & dataFile)
     {
         checkLineCsv(line);
     }
-std::cout << "Content of _dataBase:" << std::endl;
-    std::map<std::string, float>::iterator it;
-    for (it = _dataBase.begin(); it != _dataBase.end(); ++it) {
-        std::cout << "Key: " << it->first << ", Value: " << it->second << std::endl;
-    }
+    // std::cout << "Content of _dataBase:" << std::endl;
+    // std::map<std::string, double>::iterator it;
+    // for (it = _dataBase.begin(); it != _dataBase.end(); ++it) {
+    //     std::cout << "Key: " << it->first << ", Value: " << it->second << std::endl;
+    // }
 }
 
 
@@ -59,11 +58,6 @@ void BitcoinExchange::checkLineCsv(std::string line)
 {
     std::string date;
     int hasDot = 0;
-    // if (line.size() < 14)
-    //     throw std:: runtime_error(BAD_INPUT);
-    // if (line[11] != '|')
-    //     throw std:: runtime_error(BAD_INPUT);
-    /*parse date here*/
     for(size_t i = 0; i < line.size(); i++)
     {
         if ((i == 4 || i == 7) && line[i] == '-')
@@ -181,27 +175,3 @@ void BitcoinExchange::getExchange(std::string key, std::string value)
         std::cout << key << " => " << val << " = " << (val * it->second) << std::endl;
     }
 }
-
-// void BitcoinExchange::getExchange(std::string key, std::string value)
-// {
-//     double val = atof(value.c_str());
-// 	if (val > 1000)
-// 		throw std::runtime_error("Error: too large a number.");
-// 	else if (val < 0)
-// 	{
-// 		throw std::runtime_error("Error: not a positive number.");
-// 	}
-//     if (_dataBase.empty()) {
-//         throw std::runtime_error("Error: _dataBase is empty.");
-//     }
-//     std::map<std::string, double>::iterator it = _dataBase.find(key);
-// 	if (it != _dataBase.end())
-// 		std::cout << key << " => " << val << " = " << (val * it->second ) << std::endl;
-// 	else
-// 	{
-// 		it = _dataBase.lower_bound(key);
-// 		if (it != _dataBase.begin())
-// 			--it;
-// 		std::cout << key << " => " << val << " = " << (val * it->second ) << std::endl;
-// 	}
-// }

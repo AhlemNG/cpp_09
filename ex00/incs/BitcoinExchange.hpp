@@ -6,7 +6,7 @@
 /*   By: anouri <anouri@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/11 13:42:31 by anouri            #+#    #+#             */
-/*   Updated: 2024/05/11 16:19:56 by anouri           ###   ########.fr       */
+/*   Updated: 2024/05/15 17:59:45 by anouri           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,7 +27,7 @@
 class BitcoinExchange
 {
     private:
-        std::map<std::string, float> _dataBase;
+        std::map<std::string, double> _dataBase;
     public:
         BitcoinExchange(void);
         BitcoinExchange(const BitcoinExchange &src);
