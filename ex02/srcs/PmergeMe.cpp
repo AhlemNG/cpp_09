@@ -51,42 +51,71 @@ std::deque<int> PmergeMe::getDeq()
     return(_deq);
 }
 
-void PmergeMe::mergeAndSort(std::vector<int> v)
+void PmergeMe::mergeAndSort(std::vector<int> &v)
 {
     std::vector<int> left;
     std::vector<int> right;
 
     //cut until size == 1
 
-    if (v.size() == 1)
+    if (v.size() <= 1)
         return;
-    for (size_t i= 0; i < v.size()/2; i++)
-        left.push_back(v[i]);
-   std::cout<< "********left\n";
-       for(size_t i = 0; i < left.size(); i++)
-        std::cout << v[i] << std::endl;
-    for(size_t i = v.size()/2; i < v.size(); i++)
-        right.push_back(v[i]);
-       std::cout<< "********right\n";
-       for(size_t i = 0; i < right.size(); i++)
-        std::cout << right[i] << std::endl;
+    for (size_t i= 0; i < v.size(); i++)
+    {
+        if (i < v.size()/2)
+            left.push_back(v[i]);
+        else
+            right.push_back(v[i]);
+    }
+//    std::cout<< "********left\n";
+//        for(size_t i = 0; i < left.size(); i++)
+//         std::cout << v[i] << std::endl;
+//        std::cout<< "********right\n";
+//        for(size_t i = 0; i < right.size(); i++)
+//         std::cout << right[i] << std::endl;
     mergeAndSort(left);
     mergeAndSort(right);
 
-    _vect = sort(right, left);
+    merge(left, right);
     std::cout<< "********_vect\n";
-    for(size_t i = 0; i < right.size(); i++)
-        std::cout << right[i] << std::endl;
+    for(size_t i = 0; i < v.size(); i++)
+        std::cout << v[i] << std::endl;
 }
 
-std::vector<int> PmergeMe::sort(std::vector<int> left, std::vector<int> right)
+void PmergeMe::merge(std::vector<int> left, std::vector<int> right)
 {
-    if(right.empty())
-        return(left); 
-    for (std::vector<int>::iterator it = left.begin(); it < left.end(); it++)
+    std::cout << "in sort*********************************\n";
+    int leftsize = _vect.size() / 2;
+    int rightsize = _vect.size() - leftsize;
+    int i = 0, l = 0, r =0;
+
+    //check condition for merging
+    while(l < leftsize && r < rightsize)
     {
-        if(*it> right[0])
-            left.insert(it, 1, right[0]);
+        if (left[l] < right[r])
+        {
+            _vect[i] = left[l];
+            i++;
+            l++;
+        }
+        else
+        {
+            _vect[i] = right[l];
+            i++;
+            r++;
+        }
+        //for the last element
+        while(l < leftsize)
+        {
+            _vect[i] = left[l];
+            i++;
+            l++;
+        }
+        while(r < rightsize)
+        {
+            _vect[i] = right[l];
+            i++;
+            r++;
+        }
     }
-    return (what?);
 }

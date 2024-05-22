@@ -17,14 +17,18 @@ int main(int ac, char *av[])
        std::cout<< "********vector\n";
        for(size_t i = 0; i < v.size(); i++)
         std::cout << v[i] << std::endl;
-     p.mergeAndSort(v);
+    p.mergeAndSort(v);
+    std::vector<int> v1 = p.getVect();
+    std::cout<< "********vector\n";
+    for(size_t i = 0; i < v1.size(); i++)
+        std::cout << v1[i] << std::endl;
        /*********/
 
-       p.setDeque(ac, av);
-       std::deque<int> d = p.getDeq();
-       std::cout<< "********deque\n";
-       for(size_t i = 0; i < d.size(); i++)
-        std::cout << d[i] << std::endl;
+    //    p.setDeque(ac, av);
+    //    std::deque<int> d = p.getDeq();
+    //    std::cout<< "********deque\n";
+    //    for(size_t i = 0; i < d.size(); i++)
+    //     std::cout << d[i] << std::endl;
 
         /*********/
     }

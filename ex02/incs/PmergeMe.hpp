@@ -32,8 +32,8 @@ class PmergeMe
         std::deque<int> getDeq();
 
         //merge and sort
-        void mergeAndSort(std::vector<int> v);
-        std::vector<int>  sort(std::vector<int> left, std::vector<int> right);
+        void mergeAndSort(std::vector<int> &v);
+        void  merge(std::vector<int> left, std::vector<int> right);
 
 };
 
