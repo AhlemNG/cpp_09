@@ -17,7 +17,7 @@ int main(int ac, char *av[])
        std::cout<< "********vector\n";
        for(size_t i = 0; i < v.size(); i++)
         std::cout << v[i] << std::endl;
-    p.mergeAndInsert(v, p.inf, p.sup);
+    p.mergeAndInsert(v, p.matrix);
     std::vector<int> v1 = p.getVect();
     // std::cout<< "********vector\n";
     // for(size_t i = 0; i < v1.size(); i++)

@@ -44,6 +44,10 @@ class PmergeMe
         //not best practice!
         std::vector<int> inf;
         std::vector<int> sup;
+        void mergeAndInsert(std::vector<int> v, std::vector<std::vector<int> > &matrix);
+        void sortQuadruple(std::vector<int>left, std::vector<int> right, std::vector<std::vector<int> > &matrix);
+
+        std::vector<std::vector<int> > matrix;
 };
 
 
