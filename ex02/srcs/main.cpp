@@ -14,11 +14,15 @@ int main(int ac, char *av[])
        p.checkArgs(ac, av);
        p.setVector(ac, av);
        std::vector<int> v = p.getVect();
-       std::cout<< "********vector\n";
+       std::cout<< "********before*****\n";
        for(size_t i = 0; i < v.size(); i++)
         std::cout << v[i] << std::endl;
-    p.mergeAndInsert(v, p.matrix);
-    std::vector<int> v1 = p.getVect();
+    // p.mergeAndInsert(v, p.matrix);
+    p.mergeInsertSort(v);
+    // std::cout<< "********after*****\n";
+    // for(size_t i = 0; i < v.size(); i++)
+    //     std::cout << v[i] << std::endl;
+    // std::vector<int> v1 = p.getVect();
     // std::cout<< "********vector\n";
     // for(size_t i = 0; i < v1.size(); i++)
     //     std::cout << v1[i] << std::endl;

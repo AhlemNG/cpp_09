@@ -115,3 +115,143 @@ void PmergeMe::sortQuadruple(std::vector<int>left, std::vector<int> right, std::
         }
     }
 }
+
+
+/****************************************************************************************************/
+void    PmergeMe::mergeInsertSort(std::vector<int> v)
+{
+    int last;
+    bool odd = false;
+
+    if (v.size() % 2 == 1)
+    {
+        odd = 1;
+        last = v[v.size() - 1];
+        v.pop_back();
+    }
+    //1- create an array of pairs
+    std::vector<std::pair<int, int> > pairs;
+    for(size_t i = 0; i < v.size(); i +=2)
+        pairs.push_back(std::make_pair(v[i], v[i + 1]));
+    //sort pairs
+    sortPairs(pairs);
+    std::cout<< "********sorting pairs*****\n";
+    for(size_t i = 0; i < pairs.size(); i++)
+        std::cout << "pairs[i]: [" << pairs[i].first << ", " << pairs[i].second << "]\n";
+    //2- sort by greater
+    recSortGreater(pairs);
+     std::cout<< "********sorting pairs by greater*****\n";
+    for(size_t i = 0; i < pairs.size(); i++)
+        std::cout << "pairs[i]: [" << pairs[i].first << ", " << pairs[i].second << "]\n";
+    //create a array and b array
+    std::vector<int> mainChain;
+    std::vector<int> pendingChain;
+    for(size_t i = 0 ; i < pairs.size(); i++)
+    {
+        mainChain.push_back(pairs[i].first);
+        pendingChain.push_back(pairs[i].second);
+    }
+    if (odd)
+        pendingChain.push_back(last);
+    std::cout << "pending chain\n";
+    for(size_t k = 0 ; k < pendingChain.size(); k++)
+    {
+        std::cout << pendingChain[k] << std::endl;
+    }
+    InsertPendInMain(mainChain, pendingChain);
+}
+
+void PmergeMe::sortPairs(std::vector<std::pair<int, int> > &pairs)
+{
+    for(size_t i = 0; i < pairs.size(); i++)
+    {
+        if (pairs[i].first < pairs[i].second)
+            std::swap(pairs[i].first, pairs[i].second);
+    }
+}
+
+void PmergeMe::recSortGreater(std::vector<std::pair<int, int> > &pairs)
+{
+    if (pairs.size() <= 1)
+        return;
+    size_t mid = pairs.size() / 2;
+    std::vector<std::pair<int, int> > left(pairs.begin(), pairs.begin() + mid);
+    std::vector<std::pair<int, int> > right(pairs.begin() + mid, pairs.end());
+
+    recSortGreater(left);
+    recSortGreater(right);
+
+    // Merge sorted halves
+    size_t i = 0, j = 0, k = 0;
+    while (i < left.size() && j < right.size()) 
+    {
+        if (left[i].first < right[j].first)
+            pairs[k++] = left[i++];
+        else
+            pairs[k++] = right[j++];
+    }
+    //eventual last element
+    while (i < left.size())
+        pairs[k++] = left[i++];
+    while (j < right.size())
+        pairs[k++] = right[j++];
+}
+
+int PmergeMe::doJacobstahl(int indexn_1, int indexn)
+{
+    return(indexn + 2*indexn_1);
+}
+
+int PmergeMe::findInsertionIndex(std::vector<int> v, int x)
+{
+    int l = -1;
+    int r = v.size();
+    while (l < r-1)
+    {
+        int h = (l+r) / 2;
+        if(v[h] < x)
+            l = h;
+        else
+            r = h;
+    }
+    return r;
+}
+
+void    PmergeMe::InsertPendInMain(std::vector<int> &mainChain, std::vector<int> pendingChain)
+{
+    size_t indextoInsert;
+    size_t insertionIndex;
+    size_t indexn_1 = 0;
+    size_t indexn = 1;
+    
+    mainChain.insert(mainChain.begin(), 1, pendingChain[0]);
+    for(size_t i = 0; i < pendingChain.size(); i++)
+    {
+        indextoInsert = doJacobstahl(indexn_1, indexn);
+        if (indextoInsert > pendingChain.size())
+            indextoInsert = indexn + 1;
+        if (indextoInsert >= pendingChain.size())
+        {
+            indextoInsert = pendingChain.size() - 1;
+        }
+        insertionIndex = findInsertionIndex(mainChain, pendingChain[indextoInsert]);
+        mainChain.insert(mainChain.begin() + insertionIndex, pendingChain[indextoInsert]);
+        for (size_t j = indexn + 1; j < indextoInsert && j < pendingChain.size(); j++)
+        {
+            std::cout << "index to insert = " << j << std::endl;
+            std::cout << "element to insert = " << pendingChain[j] << std::endl;
+
+            insertionIndex = findInsertionIndex(mainChain, pendingChain[j]);
+            mainChain.insert(mainChain.begin() + insertionIndex, pendingChain[j]);
+        }
+        indexn_1 = indexn;
+        indexn = indextoInsert;
+    }
+        std::cout << "main chain\n";
+        for(size_t k = 0 ; k < mainChain.size(); k++)
+        {
+            std::cout << mainChain[k] << std::endl;
+        }
+}
+
+

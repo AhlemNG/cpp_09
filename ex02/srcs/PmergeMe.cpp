@@ -31,8 +31,9 @@ void PmergeMe::checkArgs(int ac, char *av[])
 
 void PmergeMe::setVector(int ac, char *av[])
 {   
-    for(int i = 0; i < ac; i++)
+    for(int i = 1; i < ac; i++)
         _vect.push_back(atoi(av[i]));
+  
 }
 
 void PmergeMe::setDeque(int ac, char *av[])
@@ -128,3 +129,4 @@ void PmergeMe::merge(std::vector<int> left, std::vector<int> right)
         }
     }
 }
+

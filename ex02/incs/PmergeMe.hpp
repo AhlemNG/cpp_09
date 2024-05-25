@@ -46,8 +46,16 @@ class PmergeMe
         std::vector<int> sup;
         void mergeAndInsert(std::vector<int> v, std::vector<std::vector<int> > &matrix);
         void sortQuadruple(std::vector<int>left, std::vector<int> right, std::vector<std::vector<int> > &matrix);
-
         std::vector<std::vector<int> > matrix;
+        /*********************************************/
+        void    mergeInsertSort(std::vector<int> v);
+        void    sortPairs(std::vector<std::pair<int, int> > &pairs);
+        void    recSortGreater(std::vector<std::pair<int, int> > &pairs);
+        void    InsertPendInMain(std::vector<int> &mainChain, std::vector<int> pendingChain);
+        
+        int     doJacobstahl(int indexn_1, int indexn);
+        int     findInsertionIndex(std::vector<int> v, int x);
+
 };
 
 
