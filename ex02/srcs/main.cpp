@@ -1,3 +1,14 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   main.cpp                                           :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: anouri <anouri@student.42.fr>              +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2024/05/27 15:18:35 by anouri            #+#    #+#             */
+/*   Updated: 2024/05/27 20:12:56 by anouri           ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
 
 #include "../incs/PmergeMe.hpp"
 
@@ -11,35 +22,11 @@ int main(int ac, char *av[])
     try
     {
        PmergeMe p;
-       p.checkArgs(ac, av);
-       p.setVector(ac, av);
-       std::vector<int> v = p.getVect();
-       std::cout<< "********before*****\n";
-       for(size_t i = 0; i < v.size(); i++)
-        std::cout << v[i] << std::endl;
-    // p.mergeAndInsert(v, p.matrix);
-    p.mergeInsertSort(v);
-    // std::cout<< "********after*****\n";
-    // for(size_t i = 0; i < v.size(); i++)
-    //     std::cout << v[i] << std::endl;
-    // std::vector<int> v1 = p.getVect();
-    // std::cout<< "********vector\n";
-    // for(size_t i = 0; i < v1.size(); i++)
-    //     std::cout << v1[i] << std::endl;
-       /*********/
-
-    //    p.setDeque(ac, av);
-    //    std::deque<int> d = p.getDeq();
-    //    std::cout<< "********deque\n";
-    //    for(size_t i = 0; i < d.size(); i++)
-    //     std::cout << d[i] << std::endl;
-
-        /*********/
+       p.mergeInsertSort(ac, av); 
     }
     catch(const std::exception& e)
     {
         std::cerr << e.what() << '\n';
     }
-    
     return 0;
 }
