@@ -225,6 +225,13 @@ void    PmergeMe::InsertPendInMain(std::vector<int> &mainChain, std::vector<int>
     size_t indexn = 1;
     
     mainChain.insert(mainChain.begin(), 1, pendingChain[0]);
+    insertionIndex = findInsertionIndex(mainChain, pendingChain[1]);
+    mainChain.insert(mainChain.begin() + insertionIndex, pendingChain[1]);
+     std::cout << "main chain\n";
+        for(size_t k = 0 ; k < mainChain.size(); k++)
+        {
+            std::cout << mainChain[k] << std::endl;
+        }
     for(size_t i = 0; i < pendingChain.size(); i++)
     {
         indextoInsert = doJacobstahl(indexn_1, indexn);
@@ -234,9 +241,7 @@ void    PmergeMe::InsertPendInMain(std::vector<int> &mainChain, std::vector<int>
         {
             indextoInsert = pendingChain.size() - 1;
         }
-        insertionIndex = findInsertionIndex(mainChain, pendingChain[indextoInsert]);
-        mainChain.insert(mainChain.begin() + insertionIndex, pendingChain[indextoInsert]);
-        for (size_t j = indexn + 1; j < indextoInsert && j < pendingChain.size(); j++)
+        for (size_t j = indextoInsert ; j > indexn && j < pendingChain.size(); j--)
         {
             std::cout << "index to insert = " << j << std::endl;
             std::cout << "element to insert = " << pendingChain[j] << std::endl;
