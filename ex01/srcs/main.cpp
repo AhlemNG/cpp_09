@@ -9,8 +9,6 @@ int main(int ac, char *av[])
             throw(std::runtime_error("ERROR: wrong arguments number"));
         expression = av[1];
         RPN calculator(expression);
-        // calculator.parsExpression(static_cast<std::string>(av[1]));
-        // std::cout << av[1] << std::endl;
     }
     catch(const std::exception &e)
     {

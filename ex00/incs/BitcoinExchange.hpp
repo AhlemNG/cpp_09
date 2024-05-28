@@ -6,7 +6,7 @@
 /*   By: anouri <anouri@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/11 13:42:31 by anouri            #+#    #+#             */
-/*   Updated: 2024/05/15 17:59:45 by anouri           ###   ########.fr       */
+/*   Updated: 2024/05/28 17:21:43 by anouri           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,6 +23,10 @@
 #include "define.h"
 #include <cstdlib>
 #include <iterator>
+#include <iomanip>
+#include <ctime>
+#include <sstream>
+#include <string.h>
 
 class BitcoinExchange
 {
@@ -34,13 +38,16 @@ class BitcoinExchange
         BitcoinExchange & operator=(const BitcoinExchange &rhs);
         ~BitcoinExchange();
 
-        void ParseCsvFile(std::ifstream & dataFile); // c'est necessaire ? 
+        void ParseCsvFile(std::ifstream & dataFile);
         void ParseInputFile(std::ifstream & inputFile);
-        void getExchange(std::string key, std::string value); //cela va donner le resultat demande 
+        void getExchange(std::string key, std::string value); 
 
-        void checkLineCsv(std::string line); //ligne par ligne 
-        void checkLineInput(std::string line); //ligne par ligne 
-        void checkDate(const std::string &date); //date
+        void checkLineCsv(std::string line);
+        void checkLineInput(std::string line);
+        void checkDate(const std::string &date);
+        
+        bool isPosteriorDate(std::string date);
+        
 };
 
 #endif

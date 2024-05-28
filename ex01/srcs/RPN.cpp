@@ -13,7 +13,7 @@ RPN & RPN::operator=(const RPN &rhs)
     return(*this);
 }
 
-RPN::RPN(std::string expression)
+RPN::RPN(std::string &expression)
 {   
     parseExpression(expression);
     calculate(expression);
@@ -34,22 +34,16 @@ void printStack(std::stack<int> s)
     {
         std::cout << s.top() << std::endl;
         s.pop();
-
     }
 }
 
 
-
 void RPN::parseExpression(std::string expression)
 {
-    if (!isdigit(expression[0]) || !isdigit(expression[2]))
-        throw(std::runtime_error("ERROR, first and second elements must be numbers"));
     for(size_t i = 0; i < expression.size(); i++)
     {
         if(!isdigit(expression[i]) && !isOperator(expression[i]) && expression[i] != ' ' )
-            throw(std::runtime_error("ERROR, member is not a number nor an operator"));
-        
-        // std::cout << "oumourna wadh7a\n";
+            throw(std::runtime_error("ERROR"));
     }
 }
 
@@ -69,6 +63,8 @@ void RPN::calculate(std::string expression)
         }
         if (isOperator(expression[i]))
         {
+            if (_mem.size() < 2)
+                throw(std::runtime_error("Error"));
             int res;
             b = _mem.top();
             _mem.pop();
@@ -79,26 +75,29 @@ void RPN::calculate(std::string expression)
         }
         i++;
     }
-    std::cout << "hello\n";
+    if(_mem.size() != 1)
+        throw(std::runtime_error("Error"));
     printStack(_mem);
 }
 
 int RPN::doRPN(int a, int b, char op)
 {
-    int res;
+    long long res;
 
     if (op == '+')
-        res = a + b;
+        res = static_cast<long long>(a) + static_cast<long long>(b);
     else if (op == '-')
-        res = a - b;
+        res = static_cast<long long>(a) - static_cast<long long>(b);
     else if( op == '*')
-        res = a * b;
+        res = static_cast<long long>(a) * static_cast<long long>(b);
     else
     {
-        if (b == 0)
-            throw(std::runtime_error("impossible to divide by 0"));
+        if (static_cast<long long>(b) == 0)
+            throw(std::runtime_error("Error: division by 0"));
         else
-            res = a / b;
+            res = static_cast<long long>(a) / static_cast<long long>(b);
     }
-    return(res);
+    if (res > std::numeric_limits<int>::max() || res <= std::numeric_limits<int>::min())
+        throw(std::runtime_error("Error: overflow"));
+    return(static_cast<int>(res));
 }

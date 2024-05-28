@@ -7,6 +7,7 @@
 #include <iostream>
 #include <exception>
 #include <stdlib.h>
+#include <limits>
 
 class RPN
 {
@@ -16,7 +17,7 @@ class RPN
     public:
         RPN(const RPN &src);
         RPN & operator=(const RPN &rhs);
-        RPN(std::string expression);
+        RPN(std::string &expression);
         ~RPN();
 
         /*parsing*/

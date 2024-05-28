@@ -6,7 +6,7 @@
 /*   By: anouri <anouri@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/11 13:42:49 by anouri            #+#    #+#             */
-/*   Updated: 2024/05/11 14:59:36 by anouri           ###   ########.fr       */
+/*   Updated: 2024/05/28 15:56:21 by anouri           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,10 +34,6 @@ int main(int ac, char *av[])
         BitcoinExchange B;
         B.ParseCsvFile(csv);
         B.ParseInputFile(input);
-        // else
-        // {
-        //     //input file(open it and read it ? )
-        // }
         input.close();
         csv.close();
     }

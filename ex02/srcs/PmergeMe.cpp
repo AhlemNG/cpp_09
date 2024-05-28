@@ -6,7 +6,7 @@
 /*   By: anouri <anouri@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/27 15:19:02 by anouri            #+#    #+#             */
-/*   Updated: 2024/05/27 20:20:59 by anouri           ###   ########.fr       */
+/*   Updated: 2024/05/28 20:20:50 by anouri           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,7 +24,9 @@ PmergeMe & PmergeMe::operator=(const PmergeMe &rhs)
 {
     if (this != &rhs)
     {
+        _vect.clear();
         _vect = rhs.getVect();
+        _lst.clear();
         _lst = rhs.getList();
     }
     return *this;
@@ -85,7 +87,7 @@ void    PmergeMe::mergeInsertSort(int ac, char *av[])
     setVector(ac, av);
     int last;
     bool odd = false;
-    clock_t vecTime;
+    
     clock_t listTime;
 
     std::cout << "Before: ";
@@ -107,6 +109,7 @@ void    PmergeMe::mergeInsertSort(int ac, char *av[])
         lstPairs.push_back(std::make_pair(_vect[i], _vect[i + 1]));
     }
     /************vector***************/
+    clock_t startVec = clock();
     sortPairs(pairs);
     recSortGreater(pairs);
     std::vector<int> mainChain;
@@ -119,11 +122,12 @@ void    PmergeMe::mergeInsertSort(int ac, char *av[])
     if (odd)
         pendingChain.push_back(last);
     InsertPendInMain(mainChain, pendingChain);
-    vecTime = clock();
+    clock_t endVec = clock();
     std::cout << "After: ";
     printVector(this->getVect());
-    std::cout << "Time to process a range of " << ac - 1 << " elements with std::vector : " << ((float)vecTime)/CLOCKS_PER_SEC << " seconds" << std::endl;
+    std::cout << "Time to process a range of " << ac - 1 << " elements with std::vector : " << static_cast<float>(endVec - startVec) * 1000000.0/ CLOCKS_PER_SEC << " micoseconds" << std::endl;
     /************list***************/
+    clock_t startList = clock();
     sortPairsLst(lstPairs);
     recSortGreaterLst(lstPairs);
     std::list<int> mainChainLst;
@@ -136,8 +140,9 @@ void    PmergeMe::mergeInsertSort(int ac, char *av[])
     if (odd)
         pendingChainLst.push_back(last);
     InsertPendInMainLst(mainChainLst, pendingChainLst);
+    clock_t endList = clock();
     listTime = clock();
-    std::cout << "Time to process a range of " << ac - 1 << " elements with std::list : " << ((float)listTime)/CLOCKS_PER_SEC << " seconds" << std::endl;
+    std::cout << "Time to process a range of " << ac - 1 << " elements with std::list : " << static_cast<float>(endList - startList) * 1000000.0/ CLOCKS_PER_SEC << " microseconds" << std::endl;
 }
 
 void PmergeMe::sortPairs(std::vector<std::pair<int, int> > &pairs)
