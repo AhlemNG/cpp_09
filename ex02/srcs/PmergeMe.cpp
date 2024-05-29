@@ -6,7 +6,7 @@
 /*   By: anouri <anouri@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/27 15:19:02 by anouri            #+#    #+#             */
-/*   Updated: 2024/05/28 20:20:50 by anouri           ###   ########.fr       */
+/*   Updated: 2024/05/29 16:13:09 by anouri           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -80,6 +80,21 @@ void printVector(std::vector<int> v)
     std::cout << std::endl;
 }
 
+void printList(std::list<int> l)
+{
+    std::list<int>::iterator endit = l.end();
+    endit--;
+    for(std::list<int>::iterator it = l.begin(); it != endit; it++)
+    {
+        
+        if (*it > *(it++))
+            throw(std::runtime_error("not sorted"));
+        it--;
+        std::cout << *it << " " ;
+    }
+    std::cout << "\n";
+}
+
 /****************************************************************************************************/
 void    PmergeMe::mergeInsertSort(int ac, char *av[])
 {
@@ -90,7 +105,7 @@ void    PmergeMe::mergeInsertSort(int ac, char *av[])
     
     clock_t listTime;
 
-    std::cout << "Before: ";
+    std::cout << BLUE << "Before: " << RESET;
     printVector(_vect);
     
     if (_vect.size() % 2 == 1)
@@ -122,10 +137,19 @@ void    PmergeMe::mergeInsertSort(int ac, char *av[])
     if (odd)
         pendingChain.push_back(last);
     InsertPendInMain(mainChain, pendingChain);
+    /*check if sorted*/
+    // for (size_t i = 0; i < _vect.size() - 1; i++)
+    // { 
+    //     if (_vect[i] > _vect[i + 1])
+    //     {
+    //         std::cout << _vect[i] << " " << _vect[i + 1];
+    //        throw(std::runtime_error("\nnot sorted\n"));
+    //     }
+    // }
     clock_t endVec = clock();
-    std::cout << "After: ";
+    std::cout << BLUE << "After: " << RESET;
     printVector(this->getVect());
-    std::cout << "Time to process a range of " << ac - 1 << " elements with std::vector : " << static_cast<float>(endVec - startVec) * 1000000.0/ CLOCKS_PER_SEC << " micoseconds" << std::endl;
+    std::cout << BLUE <<  "Time to process a range of " << ac - 1 << " elements with std::vector : " << RESET << static_cast<float>(endVec - startVec) * 1000000.0/ CLOCKS_PER_SEC << " micoseconds" << std::endl;
     /************list***************/
     clock_t startList = clock();
     sortPairsLst(lstPairs);
@@ -140,9 +164,10 @@ void    PmergeMe::mergeInsertSort(int ac, char *av[])
     if (odd)
         pendingChainLst.push_back(last);
     InsertPendInMainLst(mainChainLst, pendingChainLst);
+    // printList(_lst);
     clock_t endList = clock();
     listTime = clock();
-    std::cout << "Time to process a range of " << ac - 1 << " elements with std::list : " << static_cast<float>(endList - startList) * 1000000.0/ CLOCKS_PER_SEC << " microseconds" << std::endl;
+    std::cout << BLUE << "Time to process a range of " << ac - 1 << " elements with std::list : " << RESET << static_cast<float>(endList - startList) * 1000000.0/ CLOCKS_PER_SEC << " microseconds" << std::endl;
 }
 
 void PmergeMe::sortPairs(std::vector<std::pair<int, int> > &pairs)
@@ -187,17 +212,18 @@ size_t PmergeMe::doJacobstahl(int indexn_1, int indexn)
 
 size_t PmergeMe::findInsertionIndex(std::vector<int> v, int x)
 {
-    size_t l = -1;
+    size_t l = 0;
     size_t r = v.size();
-    while (l < r-1)
-    {
-        int h = (l+r) / 2;
-        if(v[h] < x)
-            l = h;
+    while (l < r)
+    {        
+       size_t h = l + (r - l) / 2;
+        if (v[h] < x)
+            l = h + 1;
         else
             r = h;
     }
-    return r;
+    
+    return l;
 }
 
 void    PmergeMe::InsertPendInMain(std::vector<int> &mainChain, std::vector<int> pendingChain)
@@ -211,6 +237,7 @@ void    PmergeMe::InsertPendInMain(std::vector<int> &mainChain, std::vector<int>
     mainChain.insert(mainChain.begin() + insertionIndex, pendingChain[1]);
     for(size_t i = 0; i < pendingChain.size(); i++)
     {
+        
         indextoInsert = doJacobstahl(indexn_1, indexn);
         if (indextoInsert >= pendingChain.size())
         {
@@ -224,6 +251,7 @@ void    PmergeMe::InsertPendInMain(std::vector<int> &mainChain, std::vector<int>
         indexn_1 = indexn;
         indexn = indextoInsert;
     }
+    _vect.clear();
     _vect = mainChain;
 }
 
@@ -322,6 +350,7 @@ void PmergeMe::InsertPendInMainLst(std::list<int> &mainChain, std::list<int> &pe
         indexn_1 = indexn;
         indexn = indextoInsert;
     }
+    _lst.clear();
     _lst = mainChain;
 }
 

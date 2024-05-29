@@ -6,7 +6,7 @@
 /*   By: anouri <anouri@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/27 15:18:26 by anouri            #+#    #+#             */
-/*   Updated: 2024/05/27 20:15:38 by anouri           ###   ########.fr       */
+/*   Updated: 2024/05/29 15:58:50 by anouri           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,6 +22,7 @@
 #include <list>
 #include <time.h>
 #include <iterator>
+#include "Colors.hpp"
 
 class PmergeMe
 {
